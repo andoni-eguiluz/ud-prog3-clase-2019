@@ -11,14 +11,14 @@ import javax.swing.*;
  */
 public class ErrorAccesoConcurrente {
 
-	private static long CONPAUSA = 0; // msgs de pausa en los hilos
+	private static long CONPAUSA = 1000; // msgs de pausa en los hilos
 	
 	private static JTextArea taSalida = new JTextArea();
 	// TODO
 	// Probar que con esto hay problemas...
-	// private static ArrayList<Long> listaNums = new ArrayList<>();
+	private static ArrayList<Long> listaNums = new ArrayList<>();
 	// Y con esto no:
-	private static List<Long> listaNums = Collections.synchronizedList( new ArrayList<Long>() );
+	// private static List<Long> listaNums = Collections.synchronizedList( new ArrayList<Long>() );
 	
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
@@ -41,7 +41,7 @@ public class ErrorAccesoConcurrente {
 					// ...porque la operación *NO ES ATÓMICA*
 					// (una operación es el size(), otra el get() y otra el add()
 					//  y en medio de esas operaciones el otro hilo puede estar cambiando cosas)
-					println( "Añadido: " + listaNums.toString() );
+					println( "Añadido " + ultimoNumero + " - lista: " + listaNums.toString() );
 					if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
 				}
 			}
@@ -53,8 +53,8 @@ public class ErrorAccesoConcurrente {
 			public void run() {
 				while (true) {
 					if (!listaNums.isEmpty()) {
-						listaNums.remove(0);
-						println( "Borrado: " + listaNums.toString() );
+						long quitado = listaNums.remove(0);
+						println( "Borrado " + quitado + " - lista: " + listaNums.toString() );
 					}
 					if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
 				}
