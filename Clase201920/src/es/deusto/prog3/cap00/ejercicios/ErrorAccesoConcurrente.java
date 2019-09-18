@@ -27,6 +27,7 @@ public class ErrorAccesoConcurrente {
 		taSalida.setEditable( false );
 		f.add( new JScrollPane( taSalida ) );
 		f.setVisible( true );
+		println( "Test" ); // Mensaje de prueba
 		// Empezamos con la lista [0]
 		listaNums.add( 0L ); 
 		// TODO Programa un hilo que solo va añadiendo números incrementales a la lista por el final
