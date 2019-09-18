@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import javax.swing.*;
 
-/** Ejercicio de hilos con ventanas. Esta clase carga el texto del Quijote en un área de texto, 
+/** Ejercicio de hilos con ventanas. Esta clase carga el texto del Quijote en un área de texto,
  * y permite navegar por el área con la scrollbar y con botones de página arriba y página abajo.
  * 1. Modificarlo para que al pulsar los botones el scroll se haga con una animación 
  * a lo largo de un segundo, en lugar de en forma inmediata.
