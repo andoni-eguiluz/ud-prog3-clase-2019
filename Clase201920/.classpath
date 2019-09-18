@@ -5,6 +5,7 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="sols"/>
 	<classpathentry kind="src" path="privado"/>
+	<classpathentry kind="src" path="soluciones"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Utils"/>
 	<classpathentry kind="lib" path="D:/desarrollo/libs/JTattoo-1.6.11.jar"/>
 	<classpathentry kind="lib" path="D:/desarrollo/libs/postgresql-9.4.1211.jar"/>
