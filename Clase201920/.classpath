@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="sols"/>
+	<classpathentry kind="src" path="privado"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Utils"/>
+	<classpathentry kind="lib" path="D:/desarrollo/libs/JTattoo-1.6.11.jar"/>
+	<classpathentry kind="lib" path="D:/desarrollo/libs/postgresql-9.4.1211.jar"/>
+	<classpathentry kind="lib" path="D:/desarrollo/libs/sqlite-jdbc-3.23.1.jar"/>
+	<classpathentry kind="lib" path="D:/desarrollo/libs/vlcj-3.10.1/vlcj-3.10.1.jar" sourcepath="D:/desarrollo/libs/vlcj-3.10.1/vlcj-3.10.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/D:/desarrollo/libs/vlcj-3.10.1/vlcj-3.10.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
