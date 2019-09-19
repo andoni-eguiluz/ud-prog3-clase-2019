@@ -2,7 +2,7 @@ package es.deusto.prog3.cap00.ejercicios;
 
 import java.awt.*;
 import java.awt.event.*;
-// Com me meto en tu comentario temporal
+// Vaya con tu comentario temporal
 import java.util.Scanner;
 
 import javax.swing.*;
