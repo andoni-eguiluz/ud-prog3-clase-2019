@@ -4,8 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
-import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+// Con versión 4 de vlcj: http://capricasoftware.co.uk/projects/vlcj
+//	http://capricasoftware.co.uk/downloads/vlcj/vlcj-4.1.0-dist.zip
+
+import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.factory.discovery.NativeDiscovery;
+
 
 public class EjemploVLCJ extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -27,28 +31,28 @@ public class EjemploVLCJ extends JFrame {
 		addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				mediaPlayerComponent.getMediaPlayer().stop();
-				mediaPlayerComponent.getMediaPlayer().release();
+				mediaPlayerComponent.mediaPlayer().controls().stop();
+				mediaPlayerComponent.mediaPlayer().release();
 			}
 		});
 		bPlayPausa.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (mediaPlayerComponent.getMediaPlayer().isPlaying())
-					mediaPlayerComponent.getMediaPlayer().pause();
+				if (mediaPlayerComponent.mediaPlayer().status().isPlaying())
+					mediaPlayerComponent.mediaPlayer().controls().pause();
 				else
-					mediaPlayerComponent.getMediaPlayer().play();
+					mediaPlayerComponent.mediaPlayer().controls().play();
 			}
 		});
 	}
 
 	private void lanza(String mrl) {
-		mediaPlayerComponent.getMediaPlayer().setVolume( 100 );
-		mediaPlayerComponent.getMediaPlayer().playMedia(mrl);
+		mediaPlayerComponent.mediaPlayer().audio().setVolume( 100 );
+		mediaPlayerComponent.mediaPlayer().media().play(mrl);
 	}
 
 	public static void main(String[] args) {
-		boolean found = new NativeDiscovery().discover();
+		boolean found = (new NativeDiscovery()).discover();
     	if (!found) System.setProperty("jna.library.path", "c:\\Archivos de programa\\videolan\\vlc-2.1.5");
 		miVentana = new EjemploVLCJ();
 		miVentana.lanza(
