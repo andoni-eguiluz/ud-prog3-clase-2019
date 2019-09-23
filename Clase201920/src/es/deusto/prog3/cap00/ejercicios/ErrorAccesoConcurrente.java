@@ -30,10 +30,12 @@ public class ErrorAccesoConcurrente {
 		println( "Test" ); // Mensaje de prueba
 		// Empezamos con la lista [0]
 		listaNums.add( 0L ); 
+		
 		// TODO Programa un hilo que solo va añadiendo números incrementales a la lista por el final
 		// Haz que el hilo visualice en la ventana lo que va haciendo y espere un poquito en cada iteración:
 		// println( "Añadido: " + listaNums.toString() );
 		// if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
+		
 		// TODO Programa otro hilo que solo va quitando números por el principio
 		// Haz que el hilo visualice en la ventana lo que va haciendo y espere un poquito en cada iteración:
 		// println( "Borrado: " + listaNums.toString() );
