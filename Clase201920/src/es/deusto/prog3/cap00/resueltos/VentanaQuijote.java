@@ -51,10 +51,18 @@ public class VentanaQuijote extends JFrame {
 	// TODO Usar esta lista para gestionar los hilos uno después de otro
 	private ArrayList<Thread> hilosActivos = new ArrayList<>();
 	
+	private Thread hiloActual;
 	private void muevePagina( int pixelsVertical ) {
-		Thread t = new Thread( new Runnable() {
+		hiloActual = new Thread( new Runnable() {
 			public void run() {
-				
+				Thread yo = hiloActual;
+				hilosActivos.add( yo );
+				while (hilosActivos.get(0) != yo) {
+					System.out.println( "Soy " + yo.getName() + " y la cola es " + hilosActivos );
+					try {
+						Thread.sleep( 10 );
+					} catch (InterruptedException e) {}
+				}
 				JScrollBar bVertical = spTexto.getVerticalScrollBar();
 				System.out.println( "Moviendo texto de " + bVertical.getValue() + " a " + (bVertical.getValue()+pixelsVertical) );
 				// bVertical.setValue( bVertical.getValue() + pixelsVertical );
@@ -70,9 +78,10 @@ public class VentanaQuijote extends JFrame {
 						try {Thread.sleep(10); } catch (InterruptedException e) {}
 					}
 				}
+				hilosActivos.remove(0);
 			}
 		} );
-		t.start();
+		hiloActual.start();
 	}
 	
 	private void cargaQuijote() {
