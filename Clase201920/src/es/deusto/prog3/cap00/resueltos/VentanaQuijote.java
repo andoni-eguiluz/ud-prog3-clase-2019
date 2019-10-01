@@ -48,14 +48,15 @@ public class VentanaQuijote extends JFrame {
 		});
 	}
 	
-	// TODO Usar esta lista para gestionar los hilos uno después de otro
 	private ArrayList<Thread> hilosActivos = new ArrayList<>();
 	
-	private Thread hiloActual;
+	// private Thread hiloActual;  // No hace falta definirlo como atributo...
+	
 	private void muevePagina( int pixelsVertical ) {
-		hiloActual = new Thread( new Runnable() {
+		Thread hiloActual = new Thread() {  // Porque solo lo usamos aquí
 			public void run() {
-				Thread yo = hiloActual;
+				// Thread yo = hiloActual;  // En vez de guardar el hilo para cogerlo en la variable
+				Thread yo = this;  // ... lo podemos tomar directamente del this
 				hilosActivos.add( yo );
 				while (hilosActivos.get(0) != yo) {
 					System.out.println( "Soy " + yo.getName() + " y la cola es " + hilosActivos );
@@ -80,7 +81,7 @@ public class VentanaQuijote extends JFrame {
 				}
 				hilosActivos.remove(0);
 			}
-		} );
+		};
 		hiloActual.start();
 	}
 	
