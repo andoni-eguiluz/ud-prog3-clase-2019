@@ -53,7 +53,7 @@ public class VentanaQuijote extends JFrame {
 	// private Thread hiloActual;  // No hace falta definirlo como atributo...
 	
 	private void muevePagina( int pixelsVertical ) {
-		Thread hiloActual = new Thread() {  // Porque solo lo usamos aquí
+		Thread hiloActual = new Thread() {  // ...porque solo lo usamos aquí
 			public void run() {
 				// Thread yo = hiloActual;  // En vez de guardar el hilo para cogerlo en la variable
 				Thread yo = this;  // ... lo podemos tomar directamente del this
