@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import uk.co.caprica.vlcj.player.base.MediaPlayer;
+import uk.co.caprica.vlcj.player.base.MediaPlayerEventAdapter;
+
 // Con versión 4 de vlcj: http://capricasoftware.co.uk/projects/vlcj
 //	http://capricasoftware.co.uk/downloads/vlcj/vlcj-4.1.0-dist.zip
 
@@ -16,7 +19,7 @@ public class EjemploVLCJ extends JFrame {
 	
 	private static EjemploVLCJ miVentana;
 	private EmbeddedMediaPlayerComponent mediaPlayerComponent;
-
+	private JProgressBar pbReproduccion;
 	public EjemploVLCJ() {
 		setTitle("Prueba vlcj");
 		setSize(800, 600);
@@ -25,6 +28,9 @@ public class EjemploVLCJ extends JFrame {
 		JPanel pBotonera = new JPanel();
 		JButton bPlayPausa = new JButton( "Play/Pausa" );
 		pBotonera.add( bPlayPausa );
+		pbReproduccion = new JProgressBar( 0, 1000 );
+		pbReproduccion.setPreferredSize( new Dimension( 200, 20 ) );
+		pBotonera.add( pbReproduccion );
 		add( pBotonera, BorderLayout.SOUTH );
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -44,6 +50,19 @@ public class EjemploVLCJ extends JFrame {
 					mediaPlayerComponent.mediaPlayer().controls().play();
 			}
 		});
+		mediaPlayerComponent.mediaPlayer().events().addMediaPlayerEventListener( new MediaPlayerEventAdapter() {
+			@Override
+			public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
+				pbReproduccion.setValue( (int) (1000L * newTime / mediaPlayer.status().length()) );
+			}
+		});
+		pbReproduccion.addMouseListener( new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mediaPlayerComponent.mediaPlayer().controls().setTime( 
+					mediaPlayerComponent.mediaPlayer().status().length() * e.getX() / pbReproduccion.getWidth() );
+			}
+		});
 	}
 
 	private void lanza(String mrl) {
@@ -56,7 +75,7 @@ public class EjemploVLCJ extends JFrame {
     	if (!found) System.setProperty("jna.library.path", "c:\\Archivos de programa\\videolan\\vlc-2.1.5");
 		miVentana = new EjemploVLCJ();
 		miVentana.lanza(
-				"D:\\media\\videos\\AOrdenar\\Musica\\Somebody_That_I_Used_To_Know_-_Pentatonix_Gotye_cover (2).mp4"
+				"D:\\media\\videos\\AOrdenar\\Musica\\Material Girl - Walk off the Earth.mp4"
 				);
 	}
 	
