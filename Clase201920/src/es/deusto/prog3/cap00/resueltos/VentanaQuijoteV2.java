@@ -72,13 +72,13 @@ public class VentanaQuijoteV2 extends JFrame {
 				// Thread yo = this;  // ... lo podemos tomar directamente del this
 				hilosActivos.add( this );
 				while (hilosActivos.get(0) != this) {
-					if (interrupted()) return;
+					if (interrupted()) return; // Posible interrupción
 					// System.out.println( "Soy " + getName() + " y la cola es " + hilosActivos );
 					try {
 						Thread.sleep( 10 );
 					} catch (InterruptedException e) {
 						// e.printStackTrace();
-						return;
+						return; // Posible interrupción
 					}
 				}
 				JScrollBar bVertical = spTexto.getVerticalScrollBar();
@@ -86,14 +86,24 @@ public class VentanaQuijoteV2 extends JFrame {
 				// bVertical.setValue( bVertical.getValue() + pixelsVertical );
 				if (pixelsVertical>0) {
 					for (int i=0; i<pixelsVertical; i++) {
+						if (interrupted()) return; // Posible interrupción
 						bVertical.setValue( bVertical.getValue() + 1 );
-						try {Thread.sleep(10); } catch (InterruptedException e) {}
+						try {
+							Thread.sleep(10); 
+						} catch (InterruptedException e) {
+							return; // Posible interrupción
+						}
 					}
 				} else {
 					// for (int i=0; i>pixelsVertical; i--) {
 					for (int i=0; i<Math.abs(pixelsVertical); i++) {
+						if (interrupted()) return; // Posible interrupción
 						bVertical.setValue( bVertical.getValue() - 1 );
-						try {Thread.sleep(10); } catch (InterruptedException e) {}
+						try {
+							Thread.sleep(10); 
+						} catch (InterruptedException e) {
+							return; // Posible interrupción
+						}
 					}
 				}
 				hilosActivos.remove(0);
