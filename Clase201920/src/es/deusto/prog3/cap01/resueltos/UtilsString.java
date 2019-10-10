@@ -8,7 +8,7 @@ package es.deusto.prog3.cap01.resueltos;
 public class UtilsString {
 
 	/** Devuelve cualquier string sin saltos de línea ni tabuladores (para poder exportarlo de forma tabular sin conflicto)
-	 * @param s	String con cualquier contenido
+	 * @param s	String con cualquier contenido.
 	 * @return	Mismo string sustituyendo \t con el carácter | y \n con el carácter #; Devuelve null si s es null.
 	 */
 	public static String quitarTabsYSaltosLinea( String s ) {
@@ -23,6 +23,7 @@ public class UtilsString {
 	 * @throws IndexOutOfBoundsException Generada si el largo es negativo
 	 */
 	public static String wrapString( String s, int largo ) throws IndexOutOfBoundsException {
+		// if (largo<0) throw new IndexOutOfBoundsException( "Índice negativo" );  // no hace falta porque lo provoca substring
 		if (s==null) 
 			return null;
 		else if (s.length()>largo)
