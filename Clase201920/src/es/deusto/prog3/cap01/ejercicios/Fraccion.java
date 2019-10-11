@@ -13,10 +13,10 @@ public class Fraccion {
 		System.out.println( f );
 		Fraccion f2 = new Fraccion( 1, -5 ); // 1/-5 = -1/5
 		System.out.println( f2 );
-		System.out.println( suma(f,f2) ); // 1/3 + (-1/5) = 2/15
-		System.out.println( resta(f,f2) ); // 1/3 - (-1/5) = 8/15
-		System.out.println( multiplica(f,f2) ); // 1/3 * (-1/5) = -1/15
-		System.out.println( divide(f,f2) ); // 1/3 / (-1/5) = -5/3
+		System.out.println( Fraccion.suma(f,f2) ); // 1/3 + (-1/5) = 2/15
+		System.out.println( Fraccion.resta(f,f2) ); // 1/3 - (-1/5) = 8/15
+		System.out.println( Fraccion.multiplica(f,f2) ); // 1/3 * (-1/5) = -1/15
+		System.out.println( Fraccion.divide(f,f2) ); // 1/3 / (-1/5) = -5/3
 	}
 	
 	private int num; // Numerador
@@ -28,6 +28,10 @@ public class Fraccion {
 	 */
 	public Fraccion( int num, int den ) {
 		// TODO
+		this.num = num;
+		this.den = den;
+		this.num /= mcd(num,den);
+		this.den /= mcd(num,den);
 	}
 	
 	/** Devuelve el numerador de una fracción
@@ -82,8 +86,17 @@ public class Fraccion {
 	
 	@Override
 	public String toString() {
-		// TODO
-		return null;
+		return num + "/" + den;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Fraccion) {
+			Fraccion temp = (Fraccion)obj;
+			return num==temp.num && den==temp.den;
+		} else {
+			return false;
+		}
 	}
 	
 	// Utilidad: Devuelve el máximo común divisor de 2 números positivos
