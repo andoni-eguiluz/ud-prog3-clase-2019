@@ -28,10 +28,6 @@ public class Fraccion {
 	 */
 	public Fraccion( int num, int den ) {
 		// TODO
-		this.num = num;
-		this.den = den;
-		this.num /= mcd(num,den);
-		this.den /= mcd(num,den);
 	}
 	
 	/** Devuelve el numerador de una fracción
