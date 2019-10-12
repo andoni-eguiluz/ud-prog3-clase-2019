@@ -6,7 +6,7 @@ import java.io.File;
 
 import javax.swing.*;
 
-/** Ejercicio de logger: sacar a fichero el registro de lo que hace el programa, al menos estas cosas:
+/** Ejercicio de logger: sacar a fichero XML el registro de lo que hace el programa, al menos estas cosas:
  * - Cuando se lanza la ventana
  * - Cuando se pulsa el botón
  * - Cuando se edita el textfield
