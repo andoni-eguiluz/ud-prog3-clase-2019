@@ -42,7 +42,7 @@ public class EjemploSockets {
 	public static class VentanaCliente extends JFrame {
 		JLabel lEstado = new JLabel( " " );
 		JTextField tfMensaje = new JTextField( "Introduce tu mensaje y pulsa <Enter>" );
-        PrintWriter flujoOut;
+        PrintWriter outputAServer;
         boolean finComunicacion = false;
 		public VentanaCliente() {
 			setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
@@ -60,7 +60,7 @@ public class EjemploSockets {
 			tfMensaje.addActionListener( new ActionListener() { // Evento de <enter> de textfield
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					flujoOut.println( tfMensaje.getText() );
+					outputAServer.println( tfMensaje.getText() );
 					if (tfMensaje.getText().equals("fin"))
 						finComunicacion = true;
 					tfMensaje.setText( "" );
@@ -69,17 +69,17 @@ public class EjemploSockets {
 			addWindowListener( new WindowAdapter() {
 				@Override
 				public void windowClosing(WindowEvent e) {
-					flujoOut.println( "fin" );
+					outputAServer.println( "fin" );
 					finComunicacion = true;
 				}
 			});
 		}
 	    public void lanzaCliente() {
 	        try (Socket socket = new Socket( HOST, PUERTO )) {
-	            BufferedReader echoes = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-	            flujoOut = new PrintWriter(socket.getOutputStream(), true);
-	            do {
-	            	String feedback = echoes.readLine();  // Devuelve mensaje de servidor o null cuando se cierra la comunicación
+	            BufferedReader inputDesdeServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+	            outputAServer = new PrintWriter(socket.getOutputStream(), true);
+	            do { // Ciclo de lectura desde el servidor hasta que acabe la comunicación
+	            	String feedback = inputDesdeServer.readLine();  // Devuelve mensaje de servidor o null cuando se cierra la comunicación
 	            	if (feedback!=null) {
 	            		lEstado.setText( feedback );
 	            	} else {  // Comunicación cortada por el servidor o por error en comunicación
@@ -122,17 +122,17 @@ public class EjemploSockets {
 	    	try(ServerSocket serverSocket = new ServerSocket( PUERTO )) {
 	    		socket = serverSocket.accept();
 	    		lEstado.setText( "Cliente conectado" );
-	    		BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-	    		PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-	    		while(!finComunicacion) {
-	    			String textoRecibido = input.readLine();
+	    		BufferedReader inputDesdeCliente = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+	    		PrintWriter outputACliente = new PrintWriter(socket.getOutputStream(), true);
+	    		while(!finComunicacion) {  // ciclo de lectura desde el cliente hasta que acabe la comunicación
+	    			String textoRecibido = inputDesdeCliente.readLine();
 	    			if(textoRecibido.equals("fin")) {
 	    				break;
 	    			}
 	    			lEstado.setText( "Recibido de cliente: [" + textoRecibido + "]" );
 	    			taMensajes.append( textoRecibido + "\n" );
 	    			taMensajes.setSelectionStart( taMensajes.getText().length() );
-	    			output.println("Recibido: [" + textoRecibido + "]" );
+	    			outputACliente.println("Recibido: [" + textoRecibido + "]" );
 	    		}
 	    		lEstado.setText( "El cliente se ha desconectado." );
 	    		socket.close();
