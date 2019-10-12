@@ -12,7 +12,7 @@ import javax.swing.*;
  * y que muestre los enteros uno a uno (2 segundos cada uno) en el label de mensaje
  * UTILIZANDO EN LO POSIBLE JAVA FUNCIONAL
  * ¿Cómo harías además que se pudiera elegir la acción entre una lista de acciones
- * (por ejemplo [a] sacar los enteros cada 2 segundos y también [b] calcular la media)
+ * (por ejemplo [a] sacar los enteros cada 2 segundos y también [b] calcular la media y [c] solo visualizar)
  * también utilizando java funcional?
  */
 public class JavaFuncional {
