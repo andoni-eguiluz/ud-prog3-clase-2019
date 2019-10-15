@@ -40,7 +40,7 @@ public class Fraccion {
 		if (den==0) throw new ArithmeticException( "Número no racional: fracción con denominador 0" );
 		this.num = num;
 		this.den = den;
-		simplifica();
+	//	simplifica();
 	}
 	
 	/** Devuelve el numerador de una fracción
