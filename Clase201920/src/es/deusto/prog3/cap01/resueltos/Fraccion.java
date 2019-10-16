@@ -35,6 +35,7 @@ public class Fraccion {
 	/** Crea y simplifica (si procede) una fracción
 	 * @param num	Numerador
 	 * @param den	Denominador
+	 * @throws ArithmeticException	Fracción incorrecta si denominador es cero
 	 */
 	public Fraccion( int num, int den ) throws ArithmeticException {
 		if (den==0) throw new ArithmeticException( "Número no racional: fracción con denominador 0" );
@@ -90,7 +91,8 @@ public class Fraccion {
 	/** Divide dos fracciones
 	 * @param f1	Fracción 1
 	 * @param f2	Fracción 2
-	 * @return	Fracción resultado de la resta f1 - f2
+	 * @return	Fracción resultado de la división f1 / f2
+	 * @throws ArithmeticException	Si f2 es cero, división incorrecta
 	 */
 	public static Fraccion divide( Fraccion f1, Fraccion f2 ) throws ArithmeticException {
 		if (f2.getNum()==0) throw new ArithmeticException( "Número no racional: fracción con denominador 0" );
