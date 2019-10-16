@@ -7,11 +7,11 @@ import java.io.File;
 import javax.swing.*;
 
 /** Ejercicio de logger: sacar a fichero XML el registro de lo que hace el programa, al menos estas cosas:
- * - Cuando se lanza la ventana
- * - Cuando se pulsa el botón
- * - Cuando se edita el textfield
- * - Cada carpeta que se visualiza el número de ficheros
- * - Observa que hay un posible error si la carpeta no existe. Atrapa esta excepción y añádela al log indicando un mensaje al usuario
+ * - Cuando se lanza la ventana (nivel FINEST)
+ * - Cuando se pulsa el botón (nivel FINE)
+ * - Cuando se edita el textfield (nivel FINE)
+ * - Cada carpeta que se visualiza el número de ficheros (nivel INFO)
+ * - Observa que hay un posible error si la carpeta no existe. Atrapa esta excepción y añádela al log indicando un mensaje al usuario (nivel SEVERE)
  * @author andoni.eguiluz @ ingenieria.deusto.es
  */
 public class EjercicioLogger {
