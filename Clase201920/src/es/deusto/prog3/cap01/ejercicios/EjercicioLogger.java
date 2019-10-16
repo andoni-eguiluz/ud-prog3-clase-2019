@@ -12,6 +12,7 @@ import javax.swing.*;
  * - Cuando se edita el textfield (nivel FINE)
  * - Cada carpeta que se visualiza el número de ficheros (nivel INFO)
  * - Observa que hay un posible error si la carpeta no existe. Atrapa esta excepción y añádela al log indicando un mensaje al usuario (nivel SEVERE)
+ * - Prueba cómo se comportan los mensajes si cambias el nivel de registro del log
  * @author andoni.eguiluz @ ingenieria.deusto.es
  */
 public class EjercicioLogger {
