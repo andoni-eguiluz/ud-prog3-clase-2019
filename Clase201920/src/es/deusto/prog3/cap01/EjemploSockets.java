@@ -40,7 +40,7 @@ public class EjemploSockets {
 
 	@SuppressWarnings("serial")
 	public static class VentanaCliente extends JFrame {
-		JLabel lEstado = new JLabel( " " );
+		private JTextArea taEstado = new JTextArea();
 		JTextField tfMensaje = new JTextField( "Introduce tu mensaje y pulsa <Enter>" );
         PrintWriter outputAServer;
         boolean finComunicacion = false;
@@ -49,8 +49,9 @@ public class EjemploSockets {
 			setSize( 400, 300 );
 			setLocation( 0, 0 );
 			setTitle( "Ventana cliente - 'fin' acaba" );
+			taEstado.setEditable( false );
 			getContentPane().add( tfMensaje, BorderLayout.NORTH );
-			getContentPane().add( lEstado, BorderLayout.SOUTH );
+			getContentPane().add( taEstado, BorderLayout.CENTER );
 			tfMensaje.addFocusListener( new FocusAdapter() { // Selecciona todo el texto del cuadro en cuanto se le da el foco del teclado
 				@Override
 				public void focusGained(FocusEvent e) {
@@ -81,15 +82,15 @@ public class EjemploSockets {
 	            do { // Ciclo de lectura desde el servidor hasta que acabe la comunicación
 	            	String feedback = inputDesdeServer.readLine();  // Devuelve mensaje de servidor o null cuando se cierra la comunicación
 	            	if (feedback!=null) {
-	            		lEstado.setText( feedback );
+	            		taEstado.append( feedback + "\n" );
 	            	} else {  // Comunicación cortada por el servidor o por error en comunicación
 	            		finComunicacion = true;
 	            	}
 	            } while(!finComunicacion);
 	        } catch (IOException e) {
-            	lEstado.setText( "Error en cliente: " + e.getMessage());
+	        	taEstado.append( "Error en cliente: " + e.getMessage() + "\n" );
 	        }
-	        lEstado.setText( "Fin de proceso de cliente." );
+	        taEstado.append( "Fin de proceso de cliente.\n" );
 	    }
 	}
 	    
