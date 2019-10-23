@@ -2,6 +2,7 @@ package es.deusto.prog3.cap01;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.net.ServerSocket;
 import java.awt.*;
@@ -31,7 +32,7 @@ public class EjemploSockets2 {
 				vs.lanzaServidor();
 			}
 		}).start();
-		VentanaCliente vc = new VentanaCliente( "1" );
+		VentanaCliente vc = new VentanaCliente( "A" );
 		vc.setVisible( true );
 		(new Thread() {
 			@Override
@@ -41,7 +42,7 @@ public class EjemploSockets2 {
 		}).start();
 		// *VARIOS CLIENTES* Lanzamos más clientes tras pausita
 		try {Thread.sleep(2000); } catch (InterruptedException e) {} 
-		VentanaCliente vc2 = new VentanaCliente( "2" );
+		VentanaCliente vc2 = new VentanaCliente( "B" );
 		vc2.setLocation( vc2.getLocation().x, vc2.getLocation().y + 200 );  // Un poco más abajo
 		vc2.setVisible( true );
 		(new Thread() {
@@ -51,7 +52,7 @@ public class EjemploSockets2 {
 			}
 		}).start();
 		try {Thread.sleep(2000); } catch (InterruptedException e) {} 
-		VentanaCliente vc3 = new VentanaCliente( "3" );
+		VentanaCliente vc3 = new VentanaCliente( "C" );
 		vc3.setLocation( vc3.getLocation().x, vc3.getLocation().y + 400 );  // Más abajo aún
 		vc3.setVisible( true );
 		(new Thread() {
@@ -64,7 +65,7 @@ public class EjemploSockets2 {
 
 	@SuppressWarnings("serial")
 	public static class VentanaCliente extends JFrame {
-		private JLabel lEstado = new JLabel( " " );
+		private JTextArea taEstado = new JTextArea();
 		private JTextField tfMensaje = new JTextField( "Introduce tu mensaje y pulsa <Enter>" );
 		private PrintWriter outputAServer;
         private boolean finComunicacion = false;
@@ -75,8 +76,9 @@ public class EjemploSockets2 {
 			setSize( 400, 300 );
 			setLocation( 0, 0 );
 			setTitle( "Ventana cliente " + nombre + " - 'fin' acaba y 'hola' saluda" );
+			taEstado.setEditable( false );
 			getContentPane().add( tfMensaje, BorderLayout.NORTH );
-			getContentPane().add( lEstado, BorderLayout.SOUTH );
+			getContentPane().add( taEstado, BorderLayout.CENTER );
 			tfMensaje.addFocusListener( new FocusAdapter() { // Selecciona todo el texto del cuadro en cuanto se le da el foco del teclado
 				@Override
 				public void focusGained(FocusEvent e) {
@@ -108,15 +110,15 @@ public class EjemploSockets2 {
 	            do { // Ciclo de lectura desde el servidor hasta que acabe la comunicación
 	            	String feedback = inputDesdeServer.readLine();  // Devuelve mensaje de servidor o null cuando se cierra la comunicación
 	            	if (feedback!=null) {
-	            		lEstado.setText( feedback );
+	            		taEstado.append( feedback + "\n" );
 	            	} else {  // Comunicación cortada por el servidor o por error en comunicación
 	            		finComunicacion = true;
 	            	}
 	            } while (!finComunicacion);
 	        } catch (IOException e) {
-            	lEstado.setText( "Error en cliente: " + e.getMessage());
+            	taEstado.append( "Error en cliente: " + e.getMessage() + "\n" );
 	        }
-	        lEstado.setText( "Fin de proceso de cliente." );
+	        taEstado.append( "Fin de proceso de cliente.\n" );
 	        System.out.println( "Cerrando ventana cliente " + nombre + " en 2 segundos..." );
 	        if (finComunicacion) {
 	        	try { Thread.sleep( 2000 ); } catch (InterruptedException e) {}
@@ -140,6 +142,7 @@ public class EjemploSockets2 {
 			setSize( 400, 300 );
 			setLocation( 400, 0 );
 			setTitle( "Ventana servidor" );
+			taMensajes.setEditable( false );
 			getContentPane().add( new JScrollPane(taMensajes), BorderLayout.CENTER );
 			getContentPane().add( lEstado, BorderLayout.SOUTH );
 			addWindowListener( new WindowAdapter() {
@@ -159,57 +162,59 @@ public class EjemploSockets2 {
 		public void lanzaServidor() {
 			// *VARIOS CLIENTES*
 			// Como el servidor va a gestionar varios clientes, en lugar de abrir solo una conexión, abre repetidamente conexiones hasta final
-			while (!finComunicacion) {
-				try(ServerSocket serverSocket = new ServerSocket( PUERTO )) {
-					serverSocket.setSoTimeout( 1000 );  // Para que haya un timeout cada segundo en el accept
-					Socket socket = serverSocket.accept(); // Se queda esperando a una conexión máximo un segundo
-					if (socket==null) continue;  // Repite el while si no ha habido conexión
-					// *VARIOS CLIENTES*
-					// Cada vez que un cliente se conecta, se genera un HILO que hace la comunicación con ese cliente. Y el servidor sigue ejecutando para esperar a otro cliente
-					lSockets.add( socket );
-					numCliente++;
-					Thread t = new Thread ( new Runnable() { @Override public void run() {
-						int numC = numCliente;
-						try {
-							lEstado.setText( "Cliente " + numC + " conectado" );
-							BufferedReader inputDesdeCliente = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-							PrintWriter outputACliente = new PrintWriter(socket.getOutputStream(), true);
-							lSalidas.add( outputACliente );  // Para mensajes de difusión
-							while(!finComunicacion) {  // ciclo de lectura desde el cliente hasta que acabe la comunicación
-								String textoRecibido = inputDesdeCliente.readLine();
-								if(textoRecibido.equals("fin")) {
-									break;
-								}
-								lEstado.setText( "Recibido de cliente " + numC + ": [" + textoRecibido + "]" );
-								taMensajes.append( textoRecibido + "\n" );
-								taMensajes.setSelectionStart( taMensajes.getText().length() );
-								if (textoRecibido.equals("hola")) {
-									for (PrintWriter outputCl : lSalidas) {
-										outputCl.println( "El cliente " + numC + " saluda a todos." );
+			try(ServerSocket serverSocket = new ServerSocket( PUERTO )) {
+				serverSocket.setSoTimeout( 5000 );  // Para que haya un timeout en el accept - por si cerramos la aplicación para que no se quede esperando de forma infinita
+				while (!finComunicacion) {
+					try {
+						Socket socket = serverSocket.accept(); // Se queda esperando a una conexión con timeout
+						// *VARIOS CLIENTES*
+						// Cada vez que un cliente se conecta, se genera un HILO que hace la comunicación (la lectura) con ese cliente. Y el servidor sigue ejecutando para esperar a otro cliente
+						lSockets.add( socket );
+						numCliente++;
+						Thread t = new Thread ( new Runnable() { @Override public void run() {
+							int numC = numCliente;
+							try {
+								lEstado.setText( "Cliente " + numC + " conectado" );
+								BufferedReader inputDesdeCliente = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+								PrintWriter outputACliente = new PrintWriter(socket.getOutputStream(), true);
+								lSalidas.add( outputACliente );  // Para mensajes de difusión
+								while(!finComunicacion) {  // ciclo de lectura desde el cliente hasta que acabe la comunicación
+									String textoRecibido = inputDesdeCliente.readLine();
+									if(textoRecibido.equals("fin")) {
+										break;
 									}
+									lEstado.setText( "Recibido de cliente " + numC + ": [" + textoRecibido + "]" );
+									taMensajes.append( "[" + numC + "] " + textoRecibido + "\n" );
+									taMensajes.setSelectionStart( taMensajes.getText().length() );
+									if (textoRecibido.equals("hola")) {
+										for (PrintWriter outputCl : lSalidas) {
+											outputCl.println( "El cliente " + numC + " saluda a todos." );
+										}
+									} else {
+										outputACliente.println("Recibido: [" + textoRecibido + "]" );
+									}
+								}
+								lEstado.setText( "El cliente " + numC + " se ha desconectado." );
+								socket.close();
+								lSockets.remove( socket );
+								lSalidas.remove( outputACliente );
+							} catch(IOException e) {
+								if (finComunicacion) {
+									System.out.println( "Cerrada comunicación con cliente " + numC + " por cierre de servidor." );
 								} else {
-									outputACliente.println("Recibido: [" + textoRecibido + "]" );
+									e.printStackTrace();
 								}
 							}
-							lEstado.setText( "El cliente " + numC + " se ha desconectado." );
-							socket.close();
-							lSockets.remove( socket );
-							lSalidas.remove( outputACliente );
-						} catch(IOException e) {
-							if (finComunicacion) {
-								System.out.println( "Cerrada comunicación con cliente " + numC + " por cierre de servidor." );
-							} else {
-								e.printStackTrace();
-							}
-						}
-					} } );
-					t.start();
-				} catch(IOException e) {
-					if (!e.getMessage().startsWith("Accept timed out"))  // Este es un error esperable ahora
-						lEstado.setText("Error en servidor: " + e.getMessage());
+						} } );
+						t.start();
+					} catch (SocketTimeoutException e) {
+						// Timeout en socket servidor - se reintenta (en el mismo while)
+					}
 				}
-
+			} catch(IOException e) {
+				lEstado.setText("Error en servidor: " + e.getMessage());
 			}
+
 		}
 	}
 
