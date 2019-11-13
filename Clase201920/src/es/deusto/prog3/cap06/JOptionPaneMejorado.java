@@ -10,6 +10,7 @@ public class JOptionPaneMejorado {
 	public static void main(String[] args) {
 		dialogoConCheckbox();
 		dialogoConLista();
+		dialogoConSpinner();
 	}
 	
 	private static void dialogoConCheckbox() {
@@ -31,6 +32,18 @@ public class JOptionPaneMejorado {
 		int n = JOptionPane.showConfirmDialog(null, params, "Pregunta con lista", JOptionPane.YES_NO_OPTION);
 		System.out.println( "Opción elegida: " + n );
 		System.out.println( "Seleccionado de la lista? " + lista.getSelectedValuesList() );
+	}
+
+	private static void dialogoConSpinner() {
+		JSpinner spinner1 = new JSpinner();
+		spinner1.setValue( 10 );
+		JSpinner spinner2 = new JSpinner();
+		spinner2.setValue( 50 );
+		String mensaje = "Indica ancho y alto deseados";
+		Object[] params = { mensaje, spinner1, spinner2 };  
+		int n = JOptionPane.showConfirmDialog(null, params, "Pregunta con spinner", JOptionPane.OK_CANCEL_OPTION );
+		System.out.println( "Opción elegida: " + n );
+		System.out.println( "Valores spinners: " + spinner1.getValue() + " , " + spinner2.getValue() );
 	}
 
 }
