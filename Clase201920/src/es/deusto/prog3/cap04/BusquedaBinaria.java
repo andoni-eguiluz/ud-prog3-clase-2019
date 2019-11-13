@@ -1,23 +1,82 @@
 package es.deusto.prog3.cap04;
 
+import java.util.Arrays;
+
+/** Varias soluciones de búsqueda binaria, iterativa y recursivas
+ * @author andoni.eguiluz @ ingenieria.deusto.es
+ */
 public class BusquedaBinaria {
 	private static int TAMANYO_ARRAY = 100000;
 	private static int[] array;
-
-	private static int[] inicializaVector( int tam ) {
-		array = new int[tam];
-		for (int i=0; i<tam; i++) {
-			array[i] = i*2+1;   // Mete los "n" primeros impares
-		}
-		return array;
-	}
 	
-	private static String arrayToString( int[] array ) {
-		String ret = "[ ";
-		for (int i : array) ret += (i + " ");
-		return ret + "]";
+	/** Método de prueba de búsqueda binaria
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// Inicialización
+		array = inicializaVector( TAMANYO_ARRAY ); // Inicializa del 1 al n
+
+		System.out.println( "Vector: [1, 3, 5, 7..., " + (TAMANYO_ARRAY*2 - 1) + "]" + " (" + array.length + " elementos)" );
+		// Test de búsqueda de un valor
+		int val = 10;  // Valor a buscar
+		contLlamadas = 0; contComparaciones = 0;
+		System.out.println( "Está el valor " + val + " en posición " + buscaEnVector( array, val ) ); // Pos
+		System.out.println( "  Búsqueda: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
+		int val2 = 11579;  // Valor a buscar 2
+		contLlamadas = 0; contComparaciones = 0;
+		System.out.println( "Está el valor " + val2 + " en posición " + buscaEnVector( array, val2 ) ); // Pos
+		System.out.println( "  Búsqueda: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
+		
+		System.out.println( "\nTest de llamadas y comparaciones:");
+
+		// Test con versión iterativa
+		contLlamadas = 0; contComparaciones = 0;
+		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVectorLineal( array, i );
+		System.out.println( "Versión lineal: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
+
+		// Test con versión 1
+		contLlamadas = 0; contComparaciones = 0;
+		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVector( array, i );
+		System.out.println( "Versión binaria 1: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
+
+		// Test con versión 2
+		contLlamadas = 0; contComparaciones = 0;
+		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVector2( array, i, 0, TAMANYO_ARRAY-1 );
+		System.out.println( "Versión binaria 2: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
+
+		// Test con versión 3
+		contLlamadas = 0; contComparaciones = 0;
+		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVector3( array, i, 0, TAMANYO_ARRAY-1  );
+		System.out.println( "Versión binaria 3: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
+		// Chequeo de corrección si se quisiera hacer (por ejemplo para test de unidad):
+		// for (int i=0; i<= TAMANYO_ARRAY; i++) { 
+		// 		int b = buscaEnVector3( array, i, 0, TAMANYO_ARRAY-1  ); 
+		//		if ((i%2==0 && b!=-1) || (i%2!=0 && b==-1)) 
+		//			System.out.println( "Error en búsqueda de " + i + " con retorno " + b );
+		// }
+		
+		// Segundo test: Cómo se busca cuando hay duplicidades en los datos
+		System.out.println();
+		array = new int[] { 1, 1, 2, 2, 2, 2, 2, 3, 4, 5 };
+		int donde2 = buscaEnVector( array, 2, 0, array.length-1 );
+		System.out.println( "Dividiendo por > | == | <");
+		System.out.println( "  El 2 se encuentra en la posición " + donde2 + " en " + Arrays.toString(array) );
+		System.out.println( "  (nota: donde se encuentra por primera vez -coincidencia-)" );
+		donde2 = buscaEnVector3( array, 2, 0, array.length-1 );
+		System.out.println( "Dividiendo por >= | <");
+		System.out.println( "  El 2 se encuentra en la posición " + donde2 + " en " + Arrays.toString(array) );
+		donde2 = buscaEnVector3b( array, 2, 0, array.length-1 );
+		System.out.println( "Dividiendo por > | <=");
+		System.out.println( "  El 2 se encuentra la posición " + donde2 + " en " + Arrays.toString(array) );
 	}
 
+		private static int[] inicializaVector( int tam ) {
+			array = new int[tam];
+			for (int i=0; i<tam; i++) {
+				array[i] = i*2+1;   // Mete los "n" primeros impares
+			}
+			return array;
+		}		
 	
 	/** Busca un valor en un vector de enteros ORDENADO de forma ITERATIVA (lineal)
 	 * @param array	Array de valores ordenado
@@ -135,56 +194,4 @@ public class BusquedaBinaria {
 			}
 		}
 		
-	public static void main(String[] args) {
-		// Inicialización
-		array = inicializaVector( TAMANYO_ARRAY ); // Inicializa del 1 al n
-		
-		// Test de búsqueda de un valor
-		int val = 10;  // Valor a buscar
-		System.out.println( "Está el valor " + val + buscaEnVector( array, val ) ); // Pos
-		System.out.println( "Búsqueda: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
-		
-		System.out.println( "Test de llamadas y comparaciones:");
-
-		// Test con versión iterativa
-		contLlamadas = 0; contComparaciones = 0;
-		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVectorLineal( array, i );
-		System.out.println( "Versión lineal: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
-
-		// Test con versión 1
-		contLlamadas = 0; contComparaciones = 0;
-		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVector( array, i );
-		System.out.println( "Versión binaria 1: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
-
-		// Test con versión 2
-		contLlamadas = 0; contComparaciones = 0;
-		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVector2( array, i, 0, TAMANYO_ARRAY-1 );
-		System.out.println( "Versión binaria 2: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
-
-		// Test con versión 3
-		contLlamadas = 0; contComparaciones = 0;
-		for (int i=0; i<= TAMANYO_ARRAY; i++) buscaEnVector3( array, i, 0, TAMANYO_ARRAY-1  );
-		System.out.println( "Versión binaria 3: " + contLlamadas + " llamadas y " + contComparaciones + " comparaciones." );
-		// Chequeo de corrección si se quisiera hacer (por ejemplo para test de unidad):
-		// for (int i=0; i<= TAMANYO_ARRAY; i++) { 
-		// 		int b = buscaEnVector3( array, i, 0, TAMANYO_ARRAY-1  ); 
-		//		if ((i%2==0 && b!=-1) || (i%2!=0 && b==-1)) 
-		//			System.out.println( "Error en búsqueda de " + i + " con retorno " + b );
-		// }
-		
-		// Segundo test: Cómo se busca cuando hay duplicidades en los datos
-		System.out.println();
-		array = new int[] { 1, 1, 2, 2, 2, 2, 2, 3, 4, 5 };
-		int donde2 = buscaEnVector( array, 2, 0, array.length-1 );
-		System.out.println( "Dividiendo por > | == | <");
-		System.out.println( "  El 2 se encuentra en la posición " + donde2 + " en " + arrayToString(array) );
-		System.out.println( "  (nota: donde se encuentra por primera vez -coincidencia-)" );
-		donde2 = buscaEnVector3( array, 2, 0, array.length-1 );
-		System.out.println( "Dividiendo por >= | <");
-		System.out.println( "  El 2 se encuentra en la posición " + donde2 + " en " + arrayToString(array) );
-		donde2 = buscaEnVector3b( array, 2, 0, array.length-1 );
-		System.out.println( "Dividiendo por > | <=");
-		System.out.println( "  El 2 se encuentra la posición " + donde2 + " en " + arrayToString(array) );
-	}
-
 }
