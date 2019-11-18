@@ -184,7 +184,7 @@ public class BusquedaBinaria {
 					return -1;
 				}
 			} else {
-				int mitad = (ini + fin) / 2;
+				int mitad = (ini + fin + 1) / 2;  // Ojo aquí que si calculamos la media sin +1 al volver a llamar con la mitad por la parte posterior nos arriesgamos a un stackoverflow (sin progresión: ini,fin = mitad,fin)
 										contComparaciones++;
 				if (array[mitad]>valor) {
 					return buscaEnVector3b( array, valor, ini, mitad-1 );  // Si no es igual, se desprecia la mitad
