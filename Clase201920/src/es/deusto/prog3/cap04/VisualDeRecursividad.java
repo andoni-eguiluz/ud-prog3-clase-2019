@@ -3,6 +3,8 @@ package es.deusto.prog3.cap04;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -16,6 +18,7 @@ import javax.swing.tree.TreePath;
 public class VisualDeRecursividad {
 
 	private static long ESPERA = 1000; 
+	private static int font = 12;
 	
 	@SuppressWarnings("serial")
 	private class Ventana extends JFrame {
@@ -26,6 +29,16 @@ public class VisualDeRecursividad {
 			setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 			setLocationRelativeTo( null );
 			tree = new JTree2();
+			tree.addKeyListener( new KeyAdapter() {  // Para ampliar font con Ctrl++
+				@Override
+				public void keyReleased(KeyEvent e) {
+					if (e.getKeyCode() == KeyEvent.VK_PLUS) {
+						font += 2;
+						tree.setFont( new Font( "Arial", Font.PLAIN, font ) );
+						
+					}
+				}
+			});
 			JScrollPane spPrincipal = new JScrollPane(tree);
 			getContentPane().add( spPrincipal, BorderLayout.CENTER );
 			if (conPausa) {
