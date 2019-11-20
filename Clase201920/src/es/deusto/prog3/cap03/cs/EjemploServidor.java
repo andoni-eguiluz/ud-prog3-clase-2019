@@ -136,9 +136,14 @@ public class EjemploServidor {
 		    			// Envía el mensaje al resto de clientes
 		    			for (ObjectOutputStream oos : listaOOS) {
 		    				if (oos!=output) {  // Al cliente actual no, solo al resto
-		    					oos.writeObject( ConfigCS.RECIBIDO_DE );
-		    					oos.writeObject( nomCliente );
-		    					oos.writeObject( objRecibido );
+		    					try {
+			    					oos.writeObject( ConfigCS.RECIBIDO_DE );
+			    					oos.writeObject( nomCliente );
+			    					oos.writeObject( objRecibido );
+		    					} catch (Exception e) {
+		    			    		e.printStackTrace();
+		    			    		lEstado.setText("Error en envío a cliente " + nomCliente + ": " + e.getClass().getName() + " - " + e.getMessage());
+		    					}
 		    				}
 		    			}
 		    			// Guarda el mensaje en base de datos
