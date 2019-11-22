@@ -10,6 +10,7 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import es.deusto.prog3.utils.VisualizaProceso;
 
@@ -21,10 +22,10 @@ public class SudokuResueltoEnVentana {
 
 	private static VisualizaProceso visual;
 	private static Sudoku sudoku;
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		int opcion = 1;  // 1 = Aleatorio   2 = Manual
-		visualiza();
 		sudoku = new Sudoku();
+		visualiza();
 		visual.ponMensaje( "Creando sudoku aleatorio...");
 		if (opcion==1) sudoku.creaRandom();
 		else if (opcion==2)
