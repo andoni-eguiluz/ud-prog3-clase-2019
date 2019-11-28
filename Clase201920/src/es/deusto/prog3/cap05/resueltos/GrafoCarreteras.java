@@ -40,7 +40,7 @@ public class GrafoCarreteras {
 	/** Calcula la distancia mínima entre dos ciudades
 	 * @param ciudad1	Ciudad origen
 	 * @param ciudad2	Ciudad destino
-	 * @return	Distancia mínima (si no hay camino, Integer.MAX_VALUE
+	 * @return	Distancia mínima (si no hay camino, Integer.MAX_VALUE)
 	 */
 	public int getDistanciaMinima( String ciudad1, String ciudad2 ) {
 		return getDMRec( ciudad1, ciudad2, ciudad1, 0 );
