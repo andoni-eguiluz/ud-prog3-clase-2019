@@ -2,8 +2,6 @@ package es.deusto.prog3.cap06;
 
 import java.awt.*;
 import java.awt.Dialog.ModalityType;
-import java.lang.reflect.InvocationTargetException;
-
 import javax.swing.*;
 
 public class PruebaDialog {
