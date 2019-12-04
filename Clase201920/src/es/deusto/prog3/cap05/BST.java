@@ -1,20 +1,12 @@
 package es.deusto.prog3.cap05;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.function.Consumer;
+import javax.swing.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-/** Ejemplo de BST con cualquier Comparable
+/** Ejemplo de BST (Binary Search Tree) sobre cualquier tipo base Comparable
+ * Incluye visualización de árbol en ventana
  * @author Andoni Eguíluz Morán
  * Facultad de Ingeniería - Universidad de Deusto
  */
@@ -183,7 +175,7 @@ public class BST<T extends Comparable<T>> {
 	private static BST<Integer>.VentanaArbol v;
 	public static void main(String[] args) {
 		BST<Integer> bst = new BST<>();
-		bst.insertar( 5, 3, 7, 1, 9, 4, 6 );
+		bst.insertar( 6, 4, 9, 1, 5, 7, 10 );
 		// Si se quiere sacarlo en consola: System.out.print( bst );
 		// Se saca dibujado en ventana
 		v = bst.new VentanaArbol();
@@ -212,7 +204,7 @@ public class BST<T extends Comparable<T>> {
 		System.out.println();
 		System.out.println( "Obsérvese la diferencia entre los dos árboles" );
 		bst = new BST<>();
-		bst.insertar( 1, 3, 4, 5, 6, 7, 9 );
+		bst.insertar( 1, 4, 5, 6, 7, 9, 10 );
 		// Esto cargaría un árbol aleatorio Random r = new Random(); for (int i=0; i<100; i++) { bst.insertar( r.nextInt(100)); }
 		v = bst.new VentanaArbol();
 		v.setAlwaysOnTop(true);
