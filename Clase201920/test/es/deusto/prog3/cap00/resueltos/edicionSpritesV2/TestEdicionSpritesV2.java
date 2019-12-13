@@ -14,7 +14,7 @@ import es.deusto.prog3.cap00.resueltos.edicionSpritesV2.VentanaEdicionSprites;
 
 /** Prueba de unidad (parcial) de ventana de edición de sprites
  */
-public class TestEdicionSprites {
+public class TestEdicionSpritesV2 {
 
 	private static final long PAUSA = 500; 
 	
