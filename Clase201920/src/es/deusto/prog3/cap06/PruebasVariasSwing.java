@@ -340,6 +340,25 @@ public class PruebasVariasSwing {
 		System.out.println( ((JTextField)varios[1]).getText() );
 	}
 	
+	private static void pruebaJPassword() {
+		JFrame f = new JFrame( "Prueba JPassword" );
+		f.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+		JPasswordField pass = new JPasswordField( 10 );
+		f.add( pass, BorderLayout.NORTH );
+		JTextArea taVal = new JTextArea( 10, 40 );
+		f.add( taVal, BorderLayout.CENTER );
+		pass.addActionListener( (e) -> {
+			taVal.setText( 
+				"getText() (deprecated) = " + pass.getText() +
+				"\ngetPassword() = " + pass.getPassword() + " (array de chars)" +
+				"\nnew String(getPassword()) = " + new String(pass.getPassword())
+			);
+		});
+		f.pack();
+		f.setLocationRelativeTo( null );
+		f.setVisible( true );
+	}
+	
 		
 	public static void main( String[] s ) {
 		JFrame vP = new JFrame();
@@ -378,6 +397,9 @@ public class PruebasVariasSwing {
 		p.add( b = new JButton( "JOptionPane con componentes personalizados") );
 			// Prueba de JOptionPane personalizado
 			b.addActionListener( (e) -> { pruebaJOptionPaneConComponentesPersonalizados(); } );
+		p.add( b = new JButton( "Valor de JPasswordField") );
+			// Ver valor de JPasswordField
+			b.addActionListener( (e) -> { pruebaJPassword(); } );
 		vP.pack();
 		vP.setVisible( true );
 	}
