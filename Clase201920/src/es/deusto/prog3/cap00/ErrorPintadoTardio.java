@@ -42,9 +42,9 @@ public class ErrorPintadoTardio {
 		// Hacer la visibilización (1) después de haber construido toda la ventana (2), y no antes
 		// Esto asegura que lo que pinta Swing ya es la ventana completa.
 		// En cualquier caso si vamos a cambiar luego "en caliente" el panel por ejemplo añadiendo
-		// más labels, hará falta un repaint().
+		// más labels, hará falta un repaint() o un revalidate().
 		// (no hace falta repaint() si solo se cambian posiciones o tamaños con setLocation o equivalente)
 		
 	}
 
-}
+} 
