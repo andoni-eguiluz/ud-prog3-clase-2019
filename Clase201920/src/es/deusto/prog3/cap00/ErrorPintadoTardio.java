@@ -7,7 +7,7 @@ import javax.swing.*;
  * @author andoni.eguiluz @ ingenieria.deusto.es
  */
 public class ErrorPintadoTardio {
- 
+
 	public static void main(String[] args) {
 		// Creamos una ventana de ejemplo solo para meter un coche
 		JFrame f = new JFrame( "Ejemplo pintado tardío" );
