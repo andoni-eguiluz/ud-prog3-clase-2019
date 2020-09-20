@@ -18,7 +18,7 @@ public class ErrorAccesoConcurrente {
 	private static JTextArea taSalida = new JTextArea();
 	// TODO
 	// Probar con esta estructura y ver que hay problemas:
-	private static Vector<Long> listaNums = new Vector<>();
+	private static ArrayList<Long> listaNums = new ArrayList<>();
 	// TODO Sustituirla por una estructura synchronized
 	
 	public static void main(String[] args) {
