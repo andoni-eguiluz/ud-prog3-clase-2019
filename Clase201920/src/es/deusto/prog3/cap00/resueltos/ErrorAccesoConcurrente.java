@@ -1,9 +1,6 @@
 package es.deusto.prog3.cap00.resueltos;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 import javax.swing.*;
 
@@ -13,17 +10,19 @@ import javax.swing.*;
  */
 public class ErrorAccesoConcurrente {
 
-	private static long CONPAUSA = 50; // msgs de pausa en los hilos
+	private static long CONPAUSA = 0; // msgs de pausa en los hilos
 	
 	private static JTextArea taSalida = new JTextArea();
 	// TODO
 	// Probar con esta estructura y ver que hay problemas:
-	private static ArrayList<Long> listaNums = new ArrayList<>();
+	// private static ArrayList<Long> listaNums = new ArrayList<>();
 	// TODO Sustituirla por una estructura synchronized
+	private static ArrayList<Long> listaNums = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		// Ventana de salida
 		JFrame f = new JFrame();
+		f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE ); // EXIT - Sale del programa al cerrar la ventana (acabando los hilos)  (ojo que esto no es algo que se pueda hacer siempre)
 		f.setSize( 1000, 800 );
 		// f.setLocation( 2000, 0 );
 		taSalida.setEditable( false );
