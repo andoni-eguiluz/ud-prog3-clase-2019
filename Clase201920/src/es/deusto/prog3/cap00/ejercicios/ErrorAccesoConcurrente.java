@@ -18,7 +18,6 @@ public class ErrorAccesoConcurrente {
 	// Probar con esta estructura y ver que hay problemas:
 	private static ArrayList<Long> listaNums = new ArrayList<>();
 	// TODO Sustituirla por una estructura synchronized
-	// Come
 	public static void main(String[] args) {
 		// Ventana de salida
 		JFrame f = new JFrame();
