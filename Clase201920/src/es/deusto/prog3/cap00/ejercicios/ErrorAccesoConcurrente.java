@@ -49,7 +49,7 @@ public class ErrorAccesoConcurrente {
 	// Método auxiliar para sacar información en la ventana
 	// Lo hacemos syncrhonized para que no haya interferencia entre los hilos a la hora de visualizar
 	// probar que si se quita el synchronized hay problemas)
-	private static synchronized void println( String mens ) {
+	private static synchronized void println( String mens ) { 
 		taSalida.append( mens + "\n" );
 		taSalida.setSelectionStart( taSalida.getText().length() );
 		taSalida.setSelectionEnd( taSalida.getText().length() );
