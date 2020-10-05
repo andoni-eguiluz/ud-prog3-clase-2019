@@ -7,8 +7,6 @@ package es.deusto.prog3.cap01.ejercicios;
  */
 public class UtilsString {
 
-	private static void a() { }
-	static void b() { }
 	/** Devuelve cualquier string sin saltos de línea ni tabuladores (para poder exportarlo de forma tabular sin conflicto)
 	 * @param s	String con cualquier contenido
 	 * @return	Mismo string sustituyendo \t con el carácter | y \n con el carácter #; Devuelve null si s es null.
