@@ -3,7 +3,7 @@ package es.deusto.prog3.cap01.ejercicios;
 /** Función de ejemplo a testar
  * @author andoni.eguiluz @ ingenieria.deusto.es
  */
-public class FuncionATestar {
+public class FuncionParaTest {
 	
 	/** Devuelve el factorial de un número (producto de ese número por todos los anteriores hasta 1). El factorial de 0 es 1.
 	 * @param x	Valor del que calcular el factorial
