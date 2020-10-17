@@ -12,15 +12,12 @@ public class FuncionParaTest {
 	 * @throws ArithmeticException	Lanzada cuando se intenta un factorial inviable (negativo) o cuando el resultado es incorrecto
 	 */
 	public static int factorial( int x ) throws ArithmeticException {
-		if (x<0) throw new ArithmeticException( "Factorial de negativo es incorrecto" );
-		if (x>12) throw new ArithmeticException( "Factorial no cabe en un int" );  // Posibilidad 1
+		// ORIGINALMENTE NO ESTÁ - SE VE CON LAS PRUEBAS if (x<0) throw new ArithmeticException( "Factorial de negativo es incorrecto" );
+		// ORIGINALMENTE NO ESTÁ - SE VE CON LAS PRUEBAS if (x>12) throw new ArithmeticException( "Factorial no cabe en un int" );
 		int fact = 1;
 		for (int i=1; i<=x; i++) {
-			long fact2 = (long)fact * i;
 			fact *= i;
-			// if (fact<0) throw new ArithmeticException( "Factorial no cabe en un int" );
-			// Otra manera convertir a longs
-			if (fact!=fact2) throw new ArithmeticException( "Factorial no cabe en un int" ); // Posibilidad 2
+			// ORIGINALMENTE SI ESTÁ PERO NO FUNCIONA - SE VE CON LAS PRUEBAS // if (fact<0) throw new ArithmeticException( "Factorial no cabe en un int" );
 		}
 		return fact;
 	}
