@@ -179,7 +179,7 @@ public class EjemploSockets2 {
 								PrintWriter outputACliente = new PrintWriter(socket.getOutputStream(), true);
 								lSalidas.add( outputACliente );  // Para mensajes de difusión
 								while(!finComunicacion) {  // ciclo de lectura desde el cliente hasta que acabe la comunicación
-									String textoRecibido = inputDesdeCliente.readLine();
+									String textoRecibido = inputDesdeCliente.readLine();  // Ojo: bloqueante (este hilo se queda esperando)
 									if(textoRecibido.equals("fin")) {
 										break;
 									}
