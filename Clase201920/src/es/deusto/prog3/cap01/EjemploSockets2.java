@@ -108,7 +108,7 @@ public class EjemploSockets2 {
 	            BufferedReader inputDesdeServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	            outputAServer = new PrintWriter(socket.getOutputStream(), true);
 	            do { // Ciclo de lectura desde el servidor hasta que acabe la comunicación
-	            	String feedback = inputDesdeServer.readLine();  // Devuelve mensaje de servidor o null cuando se cierra la comunicación
+	            	String feedback = inputDesdeServer.readLine();  // Ojo-bloqueante. Devuelve mensaje de servidor o null cuando se cierra la comunicación
 	            	if (feedback!=null) {
 	            		taEstado.append( feedback + "\n" );
 	            	} else {  // Comunicación cortada por el servidor o por error en comunicación

@@ -126,7 +126,7 @@ public class EjemploSockets {
 	    		BufferedReader inputDesdeCliente = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	    		PrintWriter outputACliente = new PrintWriter(socket.getOutputStream(), true);
 	    		while(!finComunicacion) {  // ciclo de lectura desde el cliente hasta que acabe la comunicación
-	    			String textoRecibido = inputDesdeCliente.readLine();
+	    			String textoRecibido = inputDesdeCliente.readLine();  // Ojo: bloqueante (este hilo se queda esperando)
 	    			if(textoRecibido.equals("fin")) {
 	    				break;
 	    			}
