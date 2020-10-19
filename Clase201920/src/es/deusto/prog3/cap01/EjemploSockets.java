@@ -2,6 +2,7 @@ package es.deusto.prog3.cap01;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Date;
 import java.net.ServerSocket;
 import java.awt.*;
 import javax.swing.*;
@@ -121,7 +122,7 @@ public class EjemploSockets {
 		}
 	    public void lanzaServidor() {
 	    	try(ServerSocket serverSocket = new ServerSocket( PUERTO )) {
-	    		socket = serverSocket.accept();
+	    		socket = serverSocket.accept();  // Bloqueante
 	    		lEstado.setText( "Cliente conectado" );
 	    		BufferedReader inputDesdeCliente = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	    		PrintWriter outputACliente = new PrintWriter(socket.getOutputStream(), true);
