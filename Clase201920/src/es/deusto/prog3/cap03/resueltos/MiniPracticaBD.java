@@ -1,4 +1,4 @@
-package es.deusto.prog3.cap03;
+package es.deusto.prog3.cap03.resueltos;
 
 import java.sql.*;
 import java.util.Vector;
@@ -76,6 +76,12 @@ public class MiniPracticaBD {
 		p.add( bAnyadir );
 		JButton bBorrar = new JButton( "Borrar nick" );
 		p.add( bBorrar );
+		JButton bVolcar = new JButton( "Volcar" );
+		p.add( bVolcar );
+		JButton bCambiar = new JButton( "Cambiar password" );
+		p.add( bCambiar );
+		JButton bBuscar = new JButton( "Buscar nick" );
+		p.add( bBuscar );
 		pSuperior.add( p, BorderLayout.SOUTH );
 		ventana.add( pSuperior, BorderLayout.NORTH );  // Panel de datos al norte
 		ventana.add( new JScrollPane( tUsuarios ), BorderLayout.CENTER );  // JTable al center
@@ -135,6 +141,70 @@ public class MiniPracticaBD {
 					JOptionPane.showMessageDialog( ventana, "Debes rellenar los dos campos" );
 				}
 				actualizaTabla();
+			}
+		});
+		bVolcar.addActionListener( new ActionListener() {  // Acción de volcar
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String com = "";
+				try {
+					com = "select * from Usuario";
+					logger.log( Level.INFO, "BD: " + com );
+					ResultSet rs = s.executeQuery( com );
+					while (rs.next()) {
+						System.out.println( "Usuario " + rs.getString( "nick" ) + " con password " + rs.getString( "pass") );
+					}
+				} catch (SQLException e2) {
+					JOptionPane.showMessageDialog( ventana, "Error en sql " + com );
+				}
+			}
+		});
+		bCambiar.addActionListener( new ActionListener() { // Acción de cambiar password
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!tfUsuario.getText().isEmpty()) {
+					String nuevaPass = JOptionPane.showInputDialog( ventana, "Introduce password nueva:", tfPassword.getText() );
+					if (nuevaPass!=null && !nuevaPass.isEmpty()) {
+						String com = "";
+						try {
+							com = "update Usuario set pass = '" + nuevaPass + " ' where nick = '" + tfUsuario.getText() + "'";
+							logger.log( Level.INFO, "BD: " + com );
+							int val = s.executeUpdate( com );
+							if (val!=1) {
+								JOptionPane.showMessageDialog( ventana, "Error en actualización de password de usuario " + tfUsuario.getText() + " no existe" );
+							}
+						} catch (SQLException e2) {
+							System.out.println( "Último comando: " + com );
+							e2.printStackTrace();
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog( ventana, "Debes rellenar los dos campos" );
+				}
+			}
+		});
+		bBuscar.addActionListener( new ActionListener() { // Acción de buscar
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!tfUsuario.getText().isEmpty()) {
+					String com = "";
+					try {
+						// Ver si existe usuario e informar
+						com = "select * from Usuario where nick = '" + tfUsuario.getText() + "'";
+						logger.log( Level.INFO, "BD: " + com );
+						rs = s.executeQuery( com );
+						if (!rs.next()) {
+							JOptionPane.showMessageDialog( ventana, "Usuario " + tfUsuario.getText() + " no existe" );
+						} else {
+							JOptionPane.showMessageDialog( ventana, "Usuario " + tfUsuario.getText() + " tiene password <" + rs.getString( "PASS" ) + ">" );
+						}
+					} catch (SQLException e2) {
+						System.out.println( "Último comando: " + com );
+						e2.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog( ventana, "Debes rellenar los dos campos" );
+				}
 			}
 		});
 		ventana.addWindowListener( new WindowAdapter() {
