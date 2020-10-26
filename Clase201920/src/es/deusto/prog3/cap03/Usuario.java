@@ -301,7 +301,7 @@ public class Usuario implements Serializable {
 		}
 	}
 	
-	/** Crea la tabla de usuarios en una base de datos
+	/** Crea la tabla de usuarios en una base de datos (si ya existía, la borra y la vuelve a crear)
 	 * @param con	Conexión ya creada y abierta a la base de datos
 	 * @return	sentencia de trabajo si se crea correctamente, null si hay cualquier error
 	 */
