@@ -64,22 +64,8 @@ public class BaseDatos {
 	 * @return	Lista completa de productos, null si hay algún error
 	 */
 	public static ArrayList<Producto> getProductos() {
-		try (Statement statement = conexion.createStatement()) {
-			ArrayList<Producto> ret = new ArrayList<>();
-			String sent = "select * from producto;";
-			System.out.println( sent );
-			ResultSet rs = statement.executeQuery( sent );
-			while( rs.next() ) { // Leer el resultset
-				int id = rs.getInt("id");
-				String nombre = rs.getString("nombre");
-				int precio = rs.getInt("precio");
-				ret.add( new Producto ( id, nombre, precio, new ArrayList<Compra>() ) );
-			}
-			return ret;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		// TODO
+		return null;
 	}
 
 	/** Inserta una compra en la base de datos abierta
@@ -88,46 +74,16 @@ public class BaseDatos {
 	 * @return	true si la inserción es correcta, false en caso contrario
 	 */
 	public static boolean insertarCompra( Compra compra ) {
-		try (Statement statement = conexion.createStatement()) {
-			String sent = "insert into compra (idProducto, fecha, cantidad) values (" + compra.getProducto().getId() + "," + compra.getFecha() + "," + compra.getCantidad() + ");";
-			System.out.println( sent );
-			int insertados = statement.executeUpdate( sent );
-			if (insertados!=1) return false;  // Error en inserción
-			
-			// 11 - Búsqueda de la fila insertada
-			sent = "select id from compra where idProducto=" + compra.getProducto().getId() + " and fecha=" + compra.getFecha() + ";";
-			System.out.println( sent );
-			ResultSet rs = statement.executeQuery( sent );
-			if (rs.next()) { // Leer el resultset y poner el id
-				int id = rs.getInt( "id" );
-				compra.setId( id );
-			}
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		// TODO
+		return false;
 	}
 	
 	/** Lee las compras de un producto dado de la conexión de base de datos abierta
 	 * @return	Lista completa de compras de ese producto, vacía si no hay ninguna, null si hay algún error
 	 */
 	public static ArrayList<Compra> getCompras( Producto producto ) {
-		try (Statement statement = conexion.createStatement()) {
-			ArrayList<Compra> ret = new ArrayList<>();
-			String sent = "select * from compra where idProducto=" + producto.getId() + ";";
-			System.out.println( sent );
-			ResultSet rs = statement.executeQuery( sent );
-			while( rs.next() ) { // Leer el resultset
-				int id = rs.getInt("id");
-				long fecha = rs.getLong("fecha");
-				int cantidad = rs.getInt("cantidad");
-				ret.add( new Compra( id, fecha, cantidad, producto ) );
-			}
-			return ret;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		// TODO
+		return null;
 	}
 
 	/** Borra una compra en la base de datos abierta
@@ -135,14 +91,8 @@ public class BaseDatos {
 	 * @return	true si el borrado es correcto, false en caso contrario
 	 */
 	public static boolean borrarCompra( Compra compra ) {
-		try (Statement statement = conexion.createStatement()) {
-			String sent = "delete from compra where id=" + compra.getId() + ";";
-			System.out.println( sent );
-			int borrados = statement.executeUpdate( sent );
-			return (borrados==1);
-		} catch (Exception e) {
-			return false;
-		}
+		// TODO
+		return false;
 	}
 	
 	
