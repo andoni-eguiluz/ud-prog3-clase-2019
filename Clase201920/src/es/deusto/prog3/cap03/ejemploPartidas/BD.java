@@ -221,7 +221,7 @@ public class BD {
 	/** Modifica un usuario en la tabla abierta de BD, usando la sentencia UPDATE de SQL
 	 * @param st	Sentencia ya abierta de Base de Datos (con la estructura de tabla correspondiente al usuario)
 	 * @param u	Usuario a modificar en la base de datos. Se toma su nick como clave
-	 * @return	true si la inserción es correcta, false en caso contrario
+	 * @return	true si la modificación es correcta, false en caso contrario
 	 */
 	public static boolean usuarioUpdate( Statement st, Usuario u ) {
 		String sentSQL = "";
