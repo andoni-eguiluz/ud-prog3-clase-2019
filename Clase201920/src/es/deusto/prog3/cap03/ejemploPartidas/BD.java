@@ -282,7 +282,7 @@ public class BD {
 	//                      Operaciones de partida                     //
 	/////////////////////////////////////////////////////////////////////
 	
-	/** Añade un usuario a la tabla abierta de BD, usando la sentencia INSERT de SQL
+	/** Añade una partida a la tabla abierta de BD, usando la sentencia INSERT de SQL
 	 * @param st	Sentencia ya abierta de Base de Datos (con la estructura de tabla correspondiente a la partida)
 	 * @param p	Partida a añadir en la base de datos
 	 * @return	true si la inserción es correcta, false en caso contrario
