@@ -20,7 +20,6 @@ public class BaseDatos {
 			Class.forName("org.sqlite.JDBC");  // Carga la clase de BD para sqlite
 			conexion = DriverManager.getConnection("jdbc:sqlite:" + nombreBD );
 			
-			/*
 			// No lo pide el ejercicio, pero si se quiere crear la base de datos si no existe desde el propio programa habría que hacer esto:
 			// creación bd
 			Statement statement = conexion.createStatement();
@@ -42,7 +41,7 @@ public class BaseDatos {
 				statement.executeUpdate( sent );
 			} catch(Exception e) {}  // Es normal que haya error en los inserts si ya existen las claves
 			// fin creación bd
-			*/
+			
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
