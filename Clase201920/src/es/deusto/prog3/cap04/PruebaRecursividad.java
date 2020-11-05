@@ -2,7 +2,7 @@ package es.deusto.prog3.cap04;
 
 public class PruebaRecursividad {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 		fSubir(1);
 		// fBajar(3000);
 		System.out.println( factorial( 7 ));
