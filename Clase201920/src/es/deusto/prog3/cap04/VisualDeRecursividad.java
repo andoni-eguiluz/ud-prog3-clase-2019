@@ -171,6 +171,30 @@ public class VisualDeRecursividad {
 			}).start();
 		}
 	
+			private static long factorial( int n, VisualDeRecursividad arbol, DefaultMutableTreeNode padre ) {
+				/* parada */ while (arbol.isPaused()) try { Thread.sleep( 500 ); } catch (Exception e) {}
+				DefaultMutableTreeNode nuevaLlamada = arbol.anyadeNodoHijo( "fact("+n+")", padre );
+				if (n==0) {
+					arbol.cambiaValorNodo( "1 <- fact("+n+")", nuevaLlamada );
+					try { Thread.sleep( 500 ); } catch (InterruptedException e) { }
+					return 1;
+				} else {
+					try { Thread.sleep( 500 ); } catch (InterruptedException e) { }
+					long resultado = n * factorial(n-1,arbol,nuevaLlamada);
+					arbol.cambiaValorNodo( resultado + " <- fact("+n+")", nuevaLlamada );
+					try { Thread.sleep( 500 ); } catch (InterruptedException e) { }
+					return resultado;
+				}
+			}
+		private static void pruebaFactorial() {
+			(new Thread() {
+				@Override
+				public void run() {
+					VisualDeRecursividad arbol = new VisualDeRecursividad( "Test Factorial", true );
+					System.out.println( "Factorial 11 = " + factorial(11,arbol,null) );
+				}
+			}).start();
+		}
 		
 	// Llamadas a las pruebas
 		
@@ -181,6 +205,8 @@ public class VisualDeRecursividad {
 		p.setLayout( new GridLayout(10,1) );
 		vP.getContentPane().add( p, BorderLayout.CENTER );
 		JButton b;
+		p.add( b = new JButton( "Factorial") );
+			b.addActionListener( (e) -> { pruebaFactorial(); } );
 		p.add( b = new JButton( "Hanoi") );
 			b.addActionListener( (e) -> { pruebaHanoi(); } );
 		p.add( b = new JButton( "Fibonacci") );
