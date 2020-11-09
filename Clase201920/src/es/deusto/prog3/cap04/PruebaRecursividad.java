@@ -1,15 +1,48 @@
 package es.deusto.prog3.cap04;
 
+/** Clase de pruebas de recursividad del capítulo 4
+ * @author andoni.eguiluz @ ingenieria.deusto.es
+ */
 public class PruebaRecursividad {
 
 	public static void main(String[] args) { 
-		fSubir(1);
+		// fSubir(1);
 		// fBajar(3000);
-		System.out.println( factorial( 7 ));
+		// System.out.println( factorial( 7 ));
 		// prod en función de suma m * n = m + m + m ... + m   (n veces)
-		System.out.println( producto( 25, 7 ) );
+		// System.out.println( producto( 25, 7 ) );
 		// Recorrer un string  visualizando caracter a caracter al derecho y al revés
-		recorrerString( "Hola voy a salir al derecho y al revés" );
+		// recorrerString( "Hola voy a salir al derecho y al revés" );
+		// System.out.println( stringAlReves( "Hola al revés" ) );
+		System.out.println( fib(45) );
+	}
+
+	//            1  2  3  4  5  6  7   8   9
+	// Fibonacci: 1, 1, 2, 3, 5, 8, 13, 21, 34 ...
+	// fib(n) = fib(n-1) + fib(n-2)
+	//        = 1 si n==1
+	public static long fib(long n) {
+		if (n==1) {
+			return 1;
+		} else if (n==2) {
+			return 1;
+		} else {
+			return fib(n-1) + fib(n-2);
+		}
+	}
+	
+	// Devolver al revés el string "Hola":
+	//   - devolver al revés el string "ola" + "H"
+	//   - string vacío - devolver ""
+	// Devolver al revés el string s
+	//   - concatenar el string s menos el primer carácter AL REVÉS + primer car de s
+	//   - string vació - devolver ""
+	public static String stringAlReves( String string ) {
+		if (string.isEmpty()) {
+			return "";
+		} else {
+			return stringAlReves(string.substring(1)) + string.charAt(0);
+		}
 	}
 	
 	
