@@ -1,5 +1,7 @@
 package es.deusto.prog3.cap04;
 
+import java.util.Arrays;
+
 /** Clase de pruebas de recursividad del capítulo 4
  * @author andoni.eguiluz @ ingenieria.deusto.es
  */
@@ -14,8 +16,29 @@ public class PruebaRecursividad {
 		// Recorrer un string  visualizando caracter a caracter al derecho y al revés
 		// recorrerString( "Hola voy a salir al derecho y al revés" );
 		// System.out.println( stringAlReves( "Hola al revés" ) );
-		System.out.println( fib(45) );
+		// System.out.println( fib(27) );  // Observa que si pones un número 40-50 empieza a notarse el largo tiempo de cálculo... ¿por qué?
+		
+		int[] array = new int[] { 1, 3, 4, 5, 8, 9, 12, 18, 19, 21 };
+		// int[] array = new int[] { 1, 1, 2, 2, 2, 2, 2, 3, 4, 5 };
+		int buscado = 23;
+		int donde = buscaEnVector( buscado, array, 0, array.length-1 );
+		System.out.println( "Encontrado " + buscado + " en posición " + donde + " en array " + Arrays.toString(array) );
 	}
+	
+		private static int buscaEnVector( int valor, int[] array, int ini, int fin  ) {
+			System.out.println( "llamada desde " + ini + " a " + fin );
+			if (ini>fin) return -1;  // Caso base: no encontrado
+			int mitad = (ini + fin) / 2;
+			if (array[mitad]==valor) { // Caso base: encontrado
+				return mitad;
+			} else {
+				if (array[mitad]>valor) {  // A la izquierda!  (el que hay en medio es > que el buscado)
+					return buscaEnVector( valor, array, ini, mitad-1 );
+				} else {  // A la derecha! (el que hay en medio es < que el buscado)
+					return buscaEnVector( valor, array, mitad+1, fin );
+				}
+			}
+		}
 
 	//            1  2  3  4  5  6  7   8   9
 	// Fibonacci: 1, 1, 2, 3, 5, 8, 13, 21, 34 ...
