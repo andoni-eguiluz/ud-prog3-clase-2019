@@ -17,12 +17,33 @@ public class PruebaRecursividad {
 		// recorrerString( "Hola voy a salir al derecho y al revés" );
 		// System.out.println( stringAlReves( "Hola al revés" ) );
 		// System.out.println( fib(27) );  // Observa que si pones un número 40-50 empieza a notarse el largo tiempo de cálculo... ¿por qué?
+	
+		// Búsqueda binaria
+		// int[] array = new int[] { 1, 3, 4, 5, 8, 9, 12, 18, 19, 21 };
+		// // int[] array = new int[] { 1, 1, 2, 2, 2, 2, 2, 3, 4, 5 };  // ¿Y qué pasa si hay repetidos?
+		// int buscado = 23;
+		// int donde = buscaEnVector( buscado, array, 0, array.length-1 );
+		// System.out.println( "Encontrado " + buscado + " en posición " + donde + " en array " + Arrays.toString(array) );
 		
-		int[] array = new int[] { 1, 3, 4, 5, 8, 9, 12, 18, 19, 21 };
-		// int[] array = new int[] { 1, 1, 2, 2, 2, 2, 2, 3, 4, 5 };
-		int buscado = 23;
-		int donde = buscaEnVector( buscado, array, 0, array.length-1 );
-		System.out.println( "Encontrado " + buscado + " en posición " + donde + " en array " + Arrays.toString(array) );
+		hanoi( 10, 'A', 'C', 'B' );
+		
+	}
+	
+	// Resolver torre de hanoi de tamaño N de varilla o -> d, auxiliar a
+	//  - Si N == 1, mover disco 1 o -> d
+	//  - Si no
+	//    Resolver torre N-1 varilla o -> a, auxiliar d
+	//    mover disco N o -> d
+	//    Resolver torre N-1 varilla a -> d, auxiliar o
+	// N NO PUEDE SER MENOR QUE 1
+	private static void hanoi( int n, char origen, char destino, char auxiliar ) {
+		if (n==1) {
+			System.out.println( "Mover 1 de " + origen + " a " + destino );
+		} else {
+			hanoi( n-1, origen, auxiliar, destino );
+			System.out.println( "Mover " + n + " de " + origen + " a " + destino );
+			hanoi( n-1, auxiliar, destino, origen );
+		}
 	}
 	
 		private static int buscaEnVector( int valor, int[] array, int ini, int fin  ) {
