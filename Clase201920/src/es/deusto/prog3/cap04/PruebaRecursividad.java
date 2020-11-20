@@ -25,9 +25,51 @@ public class PruebaRecursividad {
 		// int donde = buscaEnVector( buscado, array, 0, array.length-1 );
 		// System.out.println( "Encontrado " + buscado + " en posición " + donde + " en array " + Arrays.toString(array) );
 		
-		hanoi( 10, 'A', 'C', 'B' );
+		// hanoi( 10, 'A', 'C', 'B' );
 		
+		sacaCadenasAB( 5 );
+		sacaCadenasABC( 5, "" );
+		sacaCadenas( new char[] { 'F', 'J', 'K', 'M' }, 5, "" );
 	}
+
+	private static void sacaCadenas( char[] letras, int n, String previa ) {
+		// if (condicion de poda) return - aquí se podría hacer cualquier poda del recorrido exponencial
+		if (n==0) {
+			System.out.println( previa );
+		} else {
+			for (char c : letras) {
+				sacaCadenas( letras, n-1, previa+c );
+			}
+		}
+	}
+	
+	private static void sacaCadenasABC( int n, String previa ) {
+		if (n==0) {
+			System.out.println( previa );
+		} else {
+			sacaCadenasABC( n-1, previa+"A" );
+			sacaCadenasABC( n-1, previa+"B" );
+			sacaCadenasABC( n-1, previa+"C" );
+		}
+	}
+	
+	private static void sacaCadenasAB( int n ) {
+		sacaCadenasAB( n, "" );
+	}
+	
+	// Saca todas las cadenas de A y B de longitud N
+	//   Añadir a la cadena previa A y sacar todas las cadenas de long N-1
+	//   Añadir a la cadena previa B y sacar todas las cadenas de long N-1
+	// Caso base: si N==0 se saca la cadena previa a consola
+	private static void sacaCadenasAB( int n, String previa ) {
+		if (n==0) {
+			System.out.println( previa );
+		} else {
+			sacaCadenasAB( n-1, previa+"A" );
+			sacaCadenasAB( n-1, previa+"B" );
+		}
+	}
+	
 	
 	// Resolver torre de hanoi de tamaño N de varilla o -> d, auxiliar a
 	//  - Si N == 1, mover disco 1 o -> d

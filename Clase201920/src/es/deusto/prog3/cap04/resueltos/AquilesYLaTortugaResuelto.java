@@ -29,7 +29,9 @@ public class AquilesYLaTortugaResuelto {
 	// tFin es un tiempo en el que Aquiles ha pasado a la tortuga
 	public static double cuandoSeEncuentran( double tIni, double tFin ) {
 		numLlams++; // Auxiliar para contar el número de llamadas
-		if (Math.abs(tIni-tFin) < 0.001) {
+		if (numLlams>20) {
+			return tIni;
+		} else if (Math.abs(tIni-tFin) < 0.001) {
 			return tIni;
 		} else {
 			double tMedio = (tIni+tFin)/2;
