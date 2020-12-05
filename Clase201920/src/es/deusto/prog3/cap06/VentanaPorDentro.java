@@ -1,17 +1,8 @@
 package es.deusto.prog3.cap06;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.*;
 
-import es.deusto.prog3.cap06.pr0506resuelta.AccesoAPersonasAL;
-import es.deusto.prog3.cap06.pr0506resuelta.AccesoAPersonasHS;
-import es.deusto.prog3.cap06.pr0506resuelta.AccesoAPersonasLL;
-import es.deusto.prog3.cap06.pr0506resuelta.AccesoAPersonasTS;
-import es.deusto.prog3.cap06.pr0506resuelta.ProcesoProbable;
-import es.deusto.prog3.cap06.pr0506resuelta.Utils;
 import es.deusto.prog3.cap06.pr0506resuelta.gui.VentanaBancoDePruebas;
 
 public class VentanaPorDentro {

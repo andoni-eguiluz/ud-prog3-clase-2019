@@ -25,8 +25,41 @@ public class EjemploJTableEditorYRenderer extends JFrame {
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    MixerModel test = new MixerModel();
 	    JTable jt = new JTable(test);
-	    jt.setDefaultRenderer(Volume.class, new VolumeRenderer());
-	    jt.setDefaultEditor(Volume.class, new VolumeEditor());
+	    // Cambiemos los renderers:
+	    jt.setDefaultRenderer( String.class, new DefaultTableCellRenderer() {
+	    	// DefaultTableCellRenderer es el objeto que visualiza ("renderiza") por defecto una JTable. Cada String se visualiza como un JLabel con
+	    	// fondo blanco y texto negro. Si cambiamos ese renderer, podemos hacer que eso cambie. Por ejemplo, este renderer diferencia los fondos
+	    	// de las celdas según su fila (par o impar)
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+				JLabel l = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				if (row%2==0) {
+					l.setBackground( Color.LIGHT_GRAY );
+				} else {
+					l.setBackground( Color.WHITE );
+				}
+				return l;
+			}
+		});
+	    jt.setDefaultRenderer(Volume.class, new VolumeRenderer());  // Configura el renderer para las celdas que contengan el tipo Volume - un JSlider en lugar de un JLabel
+	    // Cambiemos los editors:
+	    jt.setDefaultEditor( String.class, new DefaultCellEditor(new JTextField("")) {
+	    	// Del mismo modo, DefaultCellEditor es el objeto que edita la celda de una JTable. Swing lo llama cada vez que una celda pide edición.
+	    	// Por defecto, un string se edita con un JTextField. Este ejemplo de editor diferencia los fondos
+	    	// de las celdas según su fila (par o impar) y evita que se editen las columnas 1 y 2
+			@Override
+			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+				if (column==1 || column==2) return null;  // Las columnas 1 y 2 no queremos que se editen
+				JTextField jtf = (JTextField) super.getTableCellEditorComponent(table, value, isSelected, row, column);
+				if (row%2==0) {
+					jtf.setBackground( Color.GREEN );
+				} else {
+					jtf.setBackground( Color.CYAN );
+				}
+				return jtf;
+			}
+		});
+	    jt.setDefaultEditor(Volume.class, new VolumeEditor());  // Configura el editor - objeto que hace la edición de una celda - un JTextField por defecto, en este caso un VolumeEditor para el tipo Volume
 	    JScrollPane jsp = new JScrollPane(jt);
 	    getContentPane().add(jsp, BorderLayout.CENTER);
 	}
